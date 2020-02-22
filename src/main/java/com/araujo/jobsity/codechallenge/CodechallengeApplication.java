@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.araujo.jobsity.codechallenge.controllers.BowlingController;
 import com.araujo.jobsity.codechallenge.controllers.ParseFileController;
+import com.araujo.jobsity.codechallenge.models.Game;
 import com.araujo.jobsity.codechallenge.models.Roll;
 
 @SpringBootApplication
@@ -26,10 +27,10 @@ public class CodechallengeApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		String filePath = Arrays.stream(args).collect(Collectors.joining("-"));
+		
+		Map<String, List<Roll>> rolls = parseFileController.parseFile(filePath.split("--spring.output.ansi.enabled=always-")[1]);
 
-		Map<String, List<Roll>> rolls = parseFileController.parseFile(filePath);
-
-		bowlingController.initBowlingGame(rolls);
+		 List<Game> games = bowlingController.bowlingGame(rolls);
 	}
 
 	public static void main(String[] args) {

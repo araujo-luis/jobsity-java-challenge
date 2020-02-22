@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import com.araujo.jobsity.codechallenge.models.Game;
 import com.araujo.jobsity.codechallenge.models.Roll;
 import com.araujo.jobsity.codechallenge.service.BowlingService;
 
@@ -24,9 +25,9 @@ public class BowlingController {
 	 * 
 	 * @param filePath
 	 */
-	public void initBowlingGame(Map<String, List<Roll>> rolls) {
-
-		bowlingService.init();
+	public List<Game> bowlingGame(Map<String, List<Roll>> rolls) {
+		List<Game> games = bowlingService.init(rolls); 
+		return games;
 	}
 
 }
