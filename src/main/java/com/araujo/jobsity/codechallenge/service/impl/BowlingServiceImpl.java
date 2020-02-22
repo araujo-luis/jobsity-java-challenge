@@ -27,42 +27,51 @@ public class BowlingServiceImpl implements BowlingService {
 		playerRolls.forEach((playerName, rolls) -> {
 
 			List<Frame> frames = new ArrayList<>();
-
-			System.out.println(rolls.get(0).getValue());
-
 			int score = 0;
 			int current = 0;
 
 			for (int i = 0; i < 10; i++) {
 
-				if (rolls.get(current).getValue() == 10) { // Strike
+				if (isStrike(rolls.get(current))) { // Strike
 
 					score += rolls.get(current).getValue() + rolls.get(current + 1).getValue()
 							+ rolls.get(current + 2).getValue();
-
-					frames.add(new Frame(Arrays.asList(new Roll(rolls.get(current).getValue())), score));
+					frames.add(createFrame(score, rolls.get(current)));
 					current++;
-				} else if ((rolls.get(current).getValue() + rolls.get(current + 1).getValue()) == 10) { // Spare
+
+				} else if (isSpare(rolls.get(current), rolls.get(current + 1))) { // Spare
 
 					score += rolls.get(current).getValue() + rolls.get(current + 1).getValue()
 							+ rolls.get(current + 2).getValue();
-					frames.add(new Frame(Arrays.asList(new Roll(rolls.get(current).getValue()),
-							new Roll(rolls.get(current + 1).getValue())), score));
+					frames.add(createFrame(score, rolls.get(current), rolls.get(current + 1)));
 					current += 2;
+
 				} else {
 
 					score += rolls.get(current).getValue() + rolls.get(current + 1).getValue();
-					frames.add(new Frame(Arrays.asList(new Roll(rolls.get(current).getValue()),
-							new Roll(rolls.get(current + 1).getValue())), score));
+					frames.add(createFrame(score, rolls.get(current), rolls.get(current + 1)));
 					current += 2;
 				}
 
 			}
+
 			games.add(new Game(playerName, frames));
 
 		});
 		return games;
 
+	}
+
+	private boolean isSpare(Roll roll, Roll next) {
+		return roll.getValue() + next.getValue() == 10;
+	}
+
+	private boolean isStrike(Roll roll) {
+		return roll.getValue() == 10;
+	}
+
+	private Frame createFrame(int score, Roll... rolls) {
+		return new Frame(Arrays.asList(rolls), score);
 	}
 
 }
