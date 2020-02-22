@@ -1,5 +1,9 @@
 package com.araujo.jobsity.codechallenge.models;
 
+/**
+ * @author Luis Araujo
+ *
+ */
 public class Roll {
 
 	private final int value;

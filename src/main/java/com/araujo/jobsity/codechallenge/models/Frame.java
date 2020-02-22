@@ -2,6 +2,10 @@ package com.araujo.jobsity.codechallenge.models;
 
 import java.util.List;
 
+/**
+ * @author Luis Araujo
+ *
+ */
 public class Frame {
 
 	private List<Roll> rolls;
