@@ -14,6 +14,7 @@ import com.araujo.jobsity.codechallenge.controllers.BowlingController;
 import com.araujo.jobsity.codechallenge.controllers.ParseFileController;
 import com.araujo.jobsity.codechallenge.models.Game;
 import com.araujo.jobsity.codechallenge.models.Roll;
+import com.araujo.jobsity.codechallenge.service.PrintService;
 
 @SpringBootApplication
 public class CodechallengeApplication implements CommandLineRunner {
@@ -24,13 +25,19 @@ public class CodechallengeApplication implements CommandLineRunner {
 	@Autowired
 	private ParseFileController parseFileController;
 
+	@Autowired
+	private PrintService printService;
+
 	@Override
 	public void run(String... args) throws Exception {
 		String filePath = Arrays.stream(args).collect(Collectors.joining("-"));
-		
-		Map<String, List<Roll>> rolls = parseFileController.parseFile(filePath.split("--spring.output.ansi.enabled=always-")[1]);
 
-		 List<Game> games = bowlingController.bowlingGame(rolls);
+		Map<String, List<Roll>> rolls = parseFileController
+				.parseFile(filePath.split("--spring.output.ansi.enabled=always-")[1]);
+
+		List<Game> games = bowlingController.bowlingGame(rolls);
+
+		printService.printResults(games);
 	}
 
 	public static void main(String[] args) {

@@ -36,23 +36,24 @@ public class BowlingServiceImpl implements BowlingService {
 
 					score += rolls.get(current).getValue() + rolls.get(current + 1).getValue()
 							+ rolls.get(current + 2).getValue();
-					if(i == 9) 
-						frames.add(createFrame(score, rolls.get(current), rolls.get(current+1) , rolls.get(current+2) ));
+					if (i == 9)
+						frames.add(createFrame(score, true, false, rolls.get(current), rolls.get(current + 1),
+								rolls.get(current + 2)));
 					else
-						frames.add(createFrame(score, rolls.get(current)));
+						frames.add(createFrame(score, true, false, rolls.get(current)));
 					current++;
 
 				} else if (isSpare(rolls.get(current), rolls.get(current + 1))) { // Spare
 
 					score += rolls.get(current).getValue() + rolls.get(current + 1).getValue()
 							+ rolls.get(current + 2).getValue();
-					frames.add(createFrame(score, rolls.get(current), rolls.get(current + 1)));
+					frames.add(createFrame(score, false, true, rolls.get(current), rolls.get(current + 1)));
 					current += 2;
 
 				} else {
 
 					score += rolls.get(current).getValue() + rolls.get(current + 1).getValue();
-					frames.add(createFrame(score, rolls.get(current), rolls.get(current + 1)));
+					frames.add(createFrame(score, false, false, rolls.get(current), rolls.get(current + 1)));
 					current += 2;
 				}
 
@@ -73,8 +74,8 @@ public class BowlingServiceImpl implements BowlingService {
 		return roll.getValue() == 10;
 	}
 
-	private Frame createFrame(int score, Roll... rolls) {
-		return new Frame(Arrays.asList(rolls), score);
+	private Frame createFrame(int score, boolean strike, boolean spare, Roll... rolls) {
+		return new Frame(Arrays.asList(rolls), score, strike, spare);
 	}
 
 }

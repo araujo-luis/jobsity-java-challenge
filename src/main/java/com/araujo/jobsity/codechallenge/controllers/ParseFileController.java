@@ -24,14 +24,6 @@ public class ParseFileController {
 	 * @return
 	 */
 	public Map<String, List<Roll>> parseFile(String filePath) {
-		Map<String, List<Roll>> playersRolls = parseFileService.parseFile(filePath);
-		System.out.println("MAP");
-		playersRolls.forEach((key, value) -> {
-			System.out.println(key);
-			value.forEach(e-> System.out.print(e.getValue() + " "));
-			
-		});
-		
-		return playersRolls;
+		return parseFileService.parseFile(filePath);
 	}
 }

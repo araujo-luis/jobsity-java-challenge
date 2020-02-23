@@ -12,6 +12,10 @@ public class Frame {
 
 	private int score;
 
+	private boolean spare;
+
+	private boolean strike;
+
 	public List<Roll> getRolls() {
 		return rolls;
 	}
@@ -28,10 +32,34 @@ public class Frame {
 		this.score = score;
 	}
 
+	public boolean isSpare() {
+		return spare;
+	}
+
+	public void setSpare(boolean spare) {
+		this.spare = spare;
+	}
+
+	public boolean isStrike() {
+		return strike;
+	}
+
+	public void setStrike(boolean strike) {
+		this.strike = strike;
+	}
+
 	public Frame(List<Roll> rolls, int score) {
 		super();
 		this.rolls = rolls;
 		this.score = score;
+	}
+
+	public Frame(List<Roll> rolls, int score, boolean strike, boolean spare ) {
+		super();
+		this.rolls = rolls;
+		this.score = score;
+		this.strike = strike;
+		this.spare = spare;
 	}
 
 	public Frame() {
