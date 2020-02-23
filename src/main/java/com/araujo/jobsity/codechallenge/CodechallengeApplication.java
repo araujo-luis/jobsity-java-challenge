@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.araujo.jobsity.codechallenge.controllers.BowlingController;
 import com.araujo.jobsity.codechallenge.controllers.ParseFileController;
+import com.araujo.jobsity.codechallenge.controllers.PrintController;
 import com.araujo.jobsity.codechallenge.models.Game;
 import com.araujo.jobsity.codechallenge.models.Roll;
 import com.araujo.jobsity.codechallenge.service.PrintService;
@@ -26,7 +27,7 @@ public class CodechallengeApplication implements CommandLineRunner {
 	private ParseFileController parseFileController;
 
 	@Autowired
-	private PrintService printService;
+	private PrintController printController;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -37,7 +38,7 @@ public class CodechallengeApplication implements CommandLineRunner {
 
 		List<Game> games = bowlingController.bowlingGame(rolls);
 
-		printService.printResults(games);
+		printController.printResults(games);
 	}
 
 	public static void main(String[] args) {

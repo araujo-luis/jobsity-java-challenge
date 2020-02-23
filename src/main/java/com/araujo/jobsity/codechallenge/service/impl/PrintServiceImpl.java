@@ -19,30 +19,42 @@ public class PrintServiceImpl implements PrintService {
 
 	private String stringScore = "";
 
+	private static final String PRINT_STRIKE = "\tX\t";
+
+	private static final String PRINT_HEADER = "Frame\t\t1\t\t2\t\t3\t\t4\t\t5\t\t6\t\t7\t\t8\t\t9\t\t10\n";
+
+	private static final String PRINT_SCORE_LABEL = "\nScore\t\t";
+
+	private static final String PRINT_PINFALLS_LABEL = "\nPinfalls\t";
+
 	@Override
 	public void printResults(List<Game> games) {
-		string.append("Frame\t\t1\t\t2\t\t3\t\t4\t\t5\t\t6\t\t7\t\t8\t\t9\t\t10\n");
+		string.append(PRINT_HEADER);
 
 		games.forEach(game -> {
 
-			string.append(game.getPlayerName() + "\n");
-			string.append("Pinfalls\t");
+			string.append(game.getPlayerName());
+
+			string.append(PRINT_PINFALLS_LABEL);
 
 			game.getFrames().forEach(frame -> {
 
-				String stringPinsDown = frame.getRolls().stream().map(x -> Integer.toString(x.getValue()))
-						.collect(Collectors.joining(","));
+				List<String> pinsDown = frame.getRolls().stream()
+						.map(roll -> roll.isFoul() ? "F" : Integer.toString(roll.getValue()))
+						.collect(Collectors.toList());
 
-				if (frame.isStrike() && stringPinsDown.split(",").length <= 2)
-					string.append("\t" + stringPinsDown + "\t");
+				if (frame.isStrike() && pinsDown.size() <= 2)
+					string.append(PRINT_STRIKE);
+				else if (frame.isSpare())
+					string.append(printSpare(pinsDown));
 				else
-					string.append(stringPinsDown.replace(",", "\t") + "\t");
+					string.append(printBasic(pinsDown));
 
 				stringScore += frame.getScore() + "\t\t";
 
 			});
 
-			string.append("\nScore\t\t");
+			string.append(PRINT_SCORE_LABEL);
 			string.append(stringScore);
 			stringScore = "";
 			string.append("\n");
@@ -50,6 +62,14 @@ public class PrintServiceImpl implements PrintService {
 
 		System.out.print(string);
 
+	}
+
+	private String printSpare(List<String> spare) {
+		return spare.get(0) + "\t/\t";
+	}
+
+	private String printBasic(List<String> spare) {
+		return spare.stream().map(roll -> (roll.equals("10") ? "X" : roll) + "\t").collect(Collectors.joining());
 	}
 
 }

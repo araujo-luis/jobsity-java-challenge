@@ -24,8 +24,9 @@ public class ParseFileServiceImpl implements ParseFileService {
 
 	/**
 	 * Parse file to a Map
+	 * 
 	 * @param filePath
-	 * @return Map 
+	 * @return Map
 	 */
 	@Override
 	public Map<String, List<Roll>> parseFile(String filePath) {
@@ -36,10 +37,11 @@ public class ParseFileServiceImpl implements ParseFileService {
 
 				String[] currentRoll = roll.split("\\t");
 				String playerName = getPlayerName(currentRoll);
-				int pinsDown = Integer.parseInt(getPinsDown(currentRoll).equals("F")? "0" : getPinsDown(currentRoll));
+				boolean isFoul = getPinsDown(currentRoll).equals("F");
+				int pinsDown = Integer.parseInt(isFoul ? "0" : getPinsDown(currentRoll));
 
 				List<Roll> rolls = playersRolls.getOrDefault(playerName, new ArrayList<>());
-				rolls.add(new Roll(pinsDown));
+				rolls.add(new Roll(pinsDown, isFoul));
 				playersRolls.put(playerName, rolls);
 
 			});
