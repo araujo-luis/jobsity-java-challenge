@@ -7,10 +7,16 @@ import java.util.List;
  *
  */
 public class Game {
-	
+
 	private String playerName;
-	
+
 	private List<Frame> frames;
+
+	private final Integer finalScore;
+
+	public Integer getFinalScore() {
+		return finalScore;
+	}
 
 	public String getPlayerName() {
 		return playerName;
@@ -32,14 +38,7 @@ public class Game {
 		super();
 		this.playerName = playerName;
 		this.frames = frames;
+		this.finalScore = frames.get(frames.size() - 1).getScore();
 	}
-
-	public Game() {
-		super();
-	}
-	
-	
-	
-	
 
 }

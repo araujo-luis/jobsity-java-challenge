@@ -36,7 +36,10 @@ public class BowlingServiceImpl implements BowlingService {
 
 					score += rolls.get(current).getValue() + rolls.get(current + 1).getValue()
 							+ rolls.get(current + 2).getValue();
-					frames.add(createFrame(score, rolls.get(current)));
+					if(i == 9) 
+						frames.add(createFrame(score, rolls.get(current), rolls.get(current+1) , rolls.get(current+2) ));
+					else
+						frames.add(createFrame(score, rolls.get(current)));
 					current++;
 
 				} else if (isSpare(rolls.get(current), rolls.get(current + 1))) { // Spare
