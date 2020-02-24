@@ -12,4 +12,8 @@ import com.araujo.jobsity.codechallenge.models.Roll;
 public interface ParseFileService {
 
 	public Map<String, List<Roll>> parseFile(String filePath);
+	
+	//public String getPlayerName(String[] rollLine);
+	
+	//public String getPinsDown(String[] rollLine);
 }

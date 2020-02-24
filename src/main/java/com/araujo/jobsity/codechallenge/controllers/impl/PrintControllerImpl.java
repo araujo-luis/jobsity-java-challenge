@@ -22,8 +22,9 @@ public class PrintControllerImpl implements PrintController {
 	/**
 	 * @param games
 	 */
-	public void printResults(List<Game> games) {
-		printService.printResults(games);
+	@Override
+	public String getResultsString(List<Game> games) {
+		return printService.getResultsString(games);
 
 	}
 }

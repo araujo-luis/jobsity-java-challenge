@@ -10,10 +10,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.araujo.jobsity.codechallenge.exceptions.InputException;
 import com.araujo.jobsity.codechallenge.models.Roll;
 import com.araujo.jobsity.codechallenge.service.ParseFileService;
+import com.araujo.jobsity.codechallenge.validations.InputValidations;
 
 /**
  * @author Luis Araujo
@@ -21,6 +24,9 @@ import com.araujo.jobsity.codechallenge.service.ParseFileService;
  */
 @Service
 public class ParseFileServiceImpl implements ParseFileService {
+
+	@Autowired
+	private InputValidations inputValidations;
 
 	/**
 	 * Parse file to a Map
@@ -35,10 +41,12 @@ public class ParseFileServiceImpl implements ParseFileService {
 
 			stream.forEach(roll -> {
 
-				String[] currentRoll = roll.split("\\t");
+				String[] currentRoll = inputValidations.format(roll);
+
 				String playerName = getPlayerName(currentRoll);
+
 				boolean isFoul = getPinsDown(currentRoll).equals("F");
-				int pinsDown = Integer.parseInt(isFoul ? "0" : getPinsDown(currentRoll));
+				int pinsDown = Integer.parseInt(isFoul ? "0" : inputValidations.validateRoll(getPinsDown(currentRoll)));
 
 				List<Roll> rolls = playersRolls.getOrDefault(playerName, new ArrayList<>());
 				rolls.add(new Roll(pinsDown, isFoul));
@@ -47,7 +55,7 @@ public class ParseFileServiceImpl implements ParseFileService {
 			});
 
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new InputException("File path not valid");
 		}
 		return playersRolls;
 
@@ -57,6 +65,7 @@ public class ParseFileServiceImpl implements ParseFileService {
 	 * @param rollLine
 	 * @return Player name
 	 */
+
 	private String getPlayerName(String[] rollLine) {
 		return rollLine[0];
 	}
@@ -65,6 +74,7 @@ public class ParseFileServiceImpl implements ParseFileService {
 	 * @param rollLine
 	 * @return Pins down
 	 */
+
 	private String getPinsDown(String[] rollLine) {
 		return rollLine[1];
 	}

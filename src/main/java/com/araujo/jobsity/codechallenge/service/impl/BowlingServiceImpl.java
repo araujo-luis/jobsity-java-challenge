@@ -30,13 +30,13 @@ public class BowlingServiceImpl implements BowlingService {
 			int score = 0;
 			int current = 0;
 
-			for (int i = 0; i < 10; i++) {
+			for (int i = 0; i < 10; i++) { // 10 frames validation, more than these won't be considered
 
 				if (isStrike(rolls.get(current))) { // Strike
 
 					score += rolls.get(current).getValue() + rolls.get(current + 1).getValue()
 							+ rolls.get(current + 2).getValue();
-					if (i == 9)
+					if (i == 9) // if last frame has 3 rolls
 						frames.add(createFrame(score, true, false, rolls.get(current), rolls.get(current + 1),
 								rolls.get(current + 2)));
 					else
@@ -66,15 +66,18 @@ public class BowlingServiceImpl implements BowlingService {
 
 	}
 
-	private boolean isSpare(Roll roll, Roll next) {
+	@Override
+	public boolean isSpare(Roll roll, Roll next) {
 		return roll.getValue() + next.getValue() == 10;
 	}
 
-	private boolean isStrike(Roll roll) {
+	@Override
+	public boolean isStrike(Roll roll) {
 		return roll.getValue() == 10;
 	}
 
-	private Frame createFrame(int score, boolean strike, boolean spare, Roll... rolls) {
+	@Override
+	public Frame createFrame(int score, boolean strike, boolean spare, Roll... rolls) {
 		return new Frame(Arrays.asList(rolls), score, strike, spare);
 	}
 

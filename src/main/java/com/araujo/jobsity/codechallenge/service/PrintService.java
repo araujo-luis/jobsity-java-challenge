@@ -10,5 +10,11 @@ import com.araujo.jobsity.codechallenge.models.Game;
  */
 public interface PrintService {
 
-	public void printResults(List<Game> games);
+	public String getResultsString(List<Game> games);
+
+	public String printSpare(List<String> spare);
+
+	public String printBasic(List<String> frame);
+
+	public String printStrike();
 }
