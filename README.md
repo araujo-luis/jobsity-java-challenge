@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/l222p/jobsity-java-challenge.svg?branch=master)](https://travis-ci.org/l222p/jobsity-java-challenge)
+
 # Jobsity Code Challenge
 
 Luis Araujo Java Code Challenge - Bowling App
@@ -35,13 +37,4 @@ Run it as a Java application, file path is a parameter. There is a folder with t
 
 ```
 $ java -jar target/codechallenge-0.0.1-SNAPSHOT.jar C:\Users\perfect.txt
-```
-
-## Output
-
-```
-Frame		1		2		3		4		5		6		7		8		9		10
-Jeff
-Pinfalls		X		X		X		X		X		X		X		X		X	X		X		X
-Score		30		60		90		120		150		180		210		240		270		300
 ```
