@@ -28,8 +28,7 @@ public class BowlingControllerImpl implements BowlingController {
 	 */
 	@Override
 	public List<Game> bowlingGame(Map<String, List<Roll>> rolls) {
-		List<Game> games = bowlingService.init(rolls); 
-		return games;
+		return bowlingService.init(rolls);
 	}
 
 }

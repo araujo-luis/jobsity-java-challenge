@@ -29,9 +29,6 @@ public class CodechallengeApplication implements CommandLineRunner {
 	@Autowired
 	private PrintController printController;
 
-	@Autowired
-	ParseFileService parseFileService;
-
 	@Override
 	public void run(String... args) throws Exception {
 		String filePath = Arrays.stream(args).collect(Collectors.joining("-"));
