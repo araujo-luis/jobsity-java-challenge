@@ -1,5 +1,10 @@
 language: java
-jdk: oraclejdk8
+jdk: openjdk8
 
 script:
-- ./mvnw clean install -B
+- ./mvnw clean install
+
+jobs:
+  include:
+    - stage: Test
+    script: ./mvnw clean test
