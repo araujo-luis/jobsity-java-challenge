@@ -42,6 +42,6 @@ $ java -jar target/codechallenge-0.0.1-SNAPSHOT.jar C:\Users\perfect.txt
 ```
 Frame		1		2		3		4		5		6		7		8		9		10
 Jeff
-Pinfalls	X		X		X		X		X		X		X		X		X	X		X		X
+Pinfalls		X		X		X		X		X		X		X		X		X	X		X		X
 Score		30		60		90		120		150		180		210		240		270		300
 ```
